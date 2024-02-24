@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Médicos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Gestión de Médicos Hospital Universitario Moncaleano Perdomo</h1>
+  </header>
+  <div class="container">
+    <button id="addDoctorBtn">Agregar Médico</button>
+    <button id="filterBtn">Lista de Médicos</button>
+  </div>
+  <table id="doctorTable" class="hidden">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Documento de Identidad</th>
+        <th>Primer Nombre</th>
+        <th>Segundo Nombre</th>
+        <th>Primer Apellido</th>
+        <th>Segundo Apellido</th>
+        <th>Celular</th>
+        <th>Correo Electrónico</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="doctorList"></tbody>
+  </table>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Agregar Médico</h2>
+      <form id="doctorForm">
+        <div class="form-group">
+          <label for="documento">N° De Documento de Identidad:</label>
+          <input type="text" id="documento" name="documento" pattern="[0-9]{10}" title="Debe ser números de 10 dígitos" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="primerNombre">Primer Nombre:</label>
+          <input type="text" id="primerNombre" name="primerNombre" pattern="[A-Za-z]+" title="Solo letras" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="segundoNombre">Segundo Nombre:</label>
+          <input type="text" id="segundoNombre" name="segundoNombre" pattern="[A-Za-z]+">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="primerApellido">Primer Apellido:</label>
+          <input type="text" id="primerApellido" name="primerApellido" pattern="[A-Za-z]+" title="Solo letras" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="segundoApellido">Segundo Apellido:</label>
+          <input type="text" id="segundoApellido" name="segundoApellido" pattern="[A-Za-z]+">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="celular">Celular:</label>
+          <input type="text" id="celular" name="celular" pattern="[0-9]{10}" title="Debe ser números de 10 dígitos" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="email">Correo Electrónico:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="estado">Estado:</label>
+          <select id="estado" name="estado" required>
+            <option value="Habilitado">Habilitado</option>
+            <option value="Deshabilitado">Deshabilitado</option>
+          </select>
+        </div>
+        <br>
+        <input type="submit" value="Guardar">
+      </form>
+    </div>
+  </div>
+  <script src="registro3.js"></script>
+</body>
+</html>
