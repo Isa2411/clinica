@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista ingresos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/ingreso.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/pagina.css">
+
+    <style>
+        #titulo {
+            background-color: #0000ff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        #formulario {
+            background-color: #add8e6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabla-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #add8e6;
+        }
+
+        .btn-volver {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="titulo" class="container py-4">
+        <h2>Lista de Ingresos</h2>
+    </div>
+
+    <div class="container">
+        <div class="btn-volver">
+            <button class="btn btn-secondary" onclick="window.location.href='ingresoregistro.html';"
+                type="button">Volver</button>
+        </div>
+    </div>
+
+    <div class="tabla-container container">
+        <div class="col-md-4">
+            <label for="filtrar" class="form-label">Filtrar</label>
+            <input type="text" class="form-control" name="filtroIngreso" id="filtroIngreso" step="1" 
+            onfocusout="filtrarIngreso(this);">
+        </div>
+        <table class="table table-hover mt-2" id="cuerpoTablaingreso">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Código del ingreso</th>
+                    <th scope="col">N°. Habitación</th>
+                    <th scope="col">N°. Cama</th>
+                    <th scope="col">Fecha de ingreso</th>
+                    <th scope="col">Fecha de salida</th>
+                    <th scope="col">Médico</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Editar</th>
+                </tr>
+            </thead>
+            <tbody id="curpoTablaIngreso">
+                <!-- Aquí se cargarán los datos de la tabla dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

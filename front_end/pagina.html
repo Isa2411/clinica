@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Hospital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/pagina.css"> <!-- Enlaza tu archivo CSS personalizado -->
+</head>
+
+<body>
+    <div class="container">
+        <!-- Cuadro del título -->
+        <section id="title-section">
+            <div class="title-box">
+                <h2>Consultorio Hospital</h2>
+            </div>
+        </section>
+
+        <!-- Cuadro de los registros -->
+        <section id="records">
+            <div class="records-box">
+                <div class="row justify-content-between"> <!-- Cambio en el justify-content -->
+                    <div class="col-md-3 col-sm-6"> <!-- Ajuste del tamaño de las columnas -->
+                        <!-- Registro Médico -->
+                        <div class="record-thumb wow fadeInUp" data-wow-delay="0.4s">
+                            <img src="img/medico1.png" class="img-responsive" alt="" width="80%">
+                            <div class="record-info text-end"> <!-- Cambio en el alineamiento del texto -->
+                                <h3><a href="medicoregistro.html">Médico</a></h3>
+                                <div class="author">
+                                    <div class="author-info"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6"> <!-- Ajuste del tamaño de las columnas -->
+                        <!-- Registro Paciente -->
+                        <div class="record-thumb wow fadeInUp" data-wow-delay="0.6s">
+                            <img src="img/paciente.png" class="img-responsive" alt="" width="80%">
+                            <div class="record-info text-end"> <!-- Cambio en el alineamiento del texto -->
+                                <h3><a href="pacienteregistro.html">Paciente</a></h3>
+                                <div class="author">
+                                    <div class="author-info"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6"> <!-- Ajuste del tamaño de las columnas -->
+                        <!-- Registro Ingreso -->
+                        <div class="record-thumb wow fadeInUp" data-wow-delay="0.8s">
+                            <img src="img/ingreso.png" class="img-responsive" alt="" width="80%">
+                            <div class="record-info text-end"> <!-- Cambio en el alineamiento del texto -->
+                                <h3><a href="ingresoregistro.html">Ingreso</a></h3>
+                                <div class="author">
+                                    <div class="author-info"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+/* Estilos para el cuadro del título */
+#title-section {
+    text-align: center; /* Centra el texto */
+    margin-top: 50px; /* Margen superior */
+}
+
+.title-box {
+    background-color: #0000ff; /* Color de fondo azul */
+    color: white; /* Color de texto blanco */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 100%; /* Ancho completo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilos para el cuadro de los registros */
+#records {
+    margin-top: 50px; /* Margen superior */
+}
+
+.records-box {
+    background-color: #add8e6; /* Color de fondo azul claro */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilos para los cuadros de cada registro */
+.record-thumb {
+    background-color: white; /* Color de fondo blanco */
+    border: 1px solid #ddd; /* Borde delgado */
+    border-radius: 10px; /* Bordes redondeados */
+    margin-bottom: 20px; /* Margen inferior */
+    padding: 10px; /* Espaciado interno */
+    text-align: center; /* Centra el contenido */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.record-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.record-info h3 {
+    margin-top: auto;
+    text-align: center; /* Alinea el texto al centro */
+}

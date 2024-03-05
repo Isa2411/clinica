@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Pacientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/pagina.css">
+    <script src="js/paciente.js"></script>
+
+    <style>
+        .registrarPacienteT {
+            background-color: #0000ff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            background-color: #add8e6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para la alineación de los elementos del formulario */
+        .form-label {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            margin-bottom: 1rem;
+        }
+
+        .btn-separator {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="registrarPacienteT">Registrar Pacientes</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="tipo_documento" class="form-label">Tipo identificación</label>
+                <select class="form-select" id="tipo_documento" name="tipo_documento" focusout="validarTipo_documento(this);">
+                    <option selected disabled value="">Seleccione una Opción</option>
+                    <option value="RC">Registro Civil</option>
+                    <option value="TI">Tarjeta de Identidad</option>
+                    <option value="CC">Cedula de Ciudadanía</option>
+                    <option value="CE">Cedula de Extranjería</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="numero_documento" class="form-label">Número Documento</label>
+                <input type="text" class="form-control" name="numero_documento" id="numero_documento" step="1"
+                    onfocusout="validarNumeroIdentificacion(this);">
+            </div>
+            <div class="col-md-4">
+                <label for="primer_nombre" class="form-label">Primer Nombre</label>
+                <input type="text" class="form-control" name="primer_nombre" id="primer_nombre"
+                    onfocusout="validarNombreApellido(this);">
+            </div>
+            <div class="col-md-4">
+                <label for="segundo_nombre" class="form-label">Segundo Nombre</label>
+                <input type="text" class="form-control" name="segundo_nombre" id="segundo_nombre">
+            </div>
+            <div class="col-md-4">
+                <label for="primer_apellido" class="form-label">Primer apellido</label>
+                <input type="text" class="form-control" name="primer_apellido" id="primer_apellido"
+                    onfocusout="validarNombreApellido(this);">
+            </div>
+            <div class="col-md-4">
+                <label for="segundo_apellido" class="form-label">Segundo apellido</label>
+                <input type="text" class="form-control" name="segundo_apellido" id="segundo_apellido">
+            </div>
+            <div class="col-md-4">
+                <label for="celular" class="form-label">Numero Celular</label>
+                <input type="text" class="form-control" name="celular" id="celular" onfocusout="validarCelular(this);">
+            </div>
+            <div class="col-md-4">
+                <label for="correo_electronico" class="form-label">Correo electronico</label>
+                <input type="text" class="form-control" name="correo_electronico" id="correo_electronico">
+            </div>
+            <div class="col-md-4">
+                <label for="nombrePersonaContacto" class="form-label">Nombre de persona de contacto</label>
+                <input type="text" class="form-control" name="nombrePersonaContacto" id="nombrePersonaContacto"
+                    onfocusout="validarAcudiente(this);">
+            </div>
+            <div class="col-md-4">
+                <label for="celularPersonaContacto" class="form-label">Celular de persona de contacto</label>
+                <input type="text" class="form-control" name="celularPersonaContacto" id="celularPersonaContacto"
+                    onfocusout="validarCelular(this);">
+            </div>
+            <div class="col-md-4">
+                <label for="estado" class="form-label">Estado</label>
+                <select name="estado" id="estado" class="form-select">
+                    <option selected disabled value="">¿Cuál es su estado actual?</option>
+                    <option value="Habilitado">Habilitado</option>
+                    <option value="Deshabilitado">Deshabilitado</option>
+                </select>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-auto">
+                        <button class="btn btn-secondary btn-separator" onclick="window.location.href='pagina.html';"
+                            type="button">Volver</button>
+                    </div>
+                    <div class="col-md-auto">
+                        <button class="btn btn-primary btn-separator" type="button"
+                            onclick="registrarPaciente();">Registrar</button>
+                    </div>
+                    <div class="col-md-auto">
+                        <button class="btn btn-secondary btn-separator"
+                            onclick="window.location.href='listapaciente.html';" type="button">Lista de
+                            Pacientes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
