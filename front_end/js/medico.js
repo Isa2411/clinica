@@ -210,37 +210,6 @@ function updateMedico(id_medico) {
 
 }
 
-/*if (validarCampos()) {
-    $.ajax({
-        url: url + id,
-        type: "PUT",
-        success: function (result) {
-            console.log(result);
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Se guardo correctamente!",
-                showConfirmButton: false,
-                timer: 1500
-            });
-            listarMedico();
-
-        },
-        error: function (error) {
-            //alert("error al guardar".error)
-            Swal.fire("Error", "Error al guardar", "error");
-        }
-    });
-
-}
-else {
-    Swal.fire(
-        'Error',
-        'Faltan campos por llenar!',
-        'error'
-    )
-}
-*/
 $(document).ready(function(){
     $.ajax({
         url: url,
