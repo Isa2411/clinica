@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url = "http://localhost:8081/api/v1/ingreso/";
+let url = "http://localhost:8080/api/v1/ingreso/";
 function listarIngreso() {
   $.ajax({
     url: url,
@@ -147,7 +147,7 @@ function CargarFormulario() {
 }
 
 function cargarMedico() {
-  let urlMedico = "http://localhost:8081/api/v1/medico/medicosactivos";
+  let urlMedico = "http://localhost:8080/api/v1/medico/medicosactivos";
 
   $.ajax({
     url: urlMedico,
@@ -174,7 +174,7 @@ function cargarMedico() {
 
 $(document).ready(function() {
   $.ajax({
-      url: "http://localhost:8081/api/v1/medico/medicosactivos", 
+      url: "http://localhost:8080/api/v1/medico/medicosactivos", 
       method: 'GET',
       dataType: 'json', 
       success: function(response) {
@@ -193,7 +193,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
   $.ajax({
-      url: "http://localhost:8081/api/v1/paciente/pacientesactivos", 
+      url: "http://localhost:8080/api/v1/paciente/pacientesactivos", 
       method: 'GET',
       dataType: 'json', 
       success: function(response) {
@@ -211,7 +211,7 @@ $(document).ready(function() {
 });
 
 function cargarPaciente() {
-  let urlpaciente = "http://localhost:8081/api/v1/paciente/";
+  let urlpaciente = "http://localhost:8080/api/v1/paciente/";
 
   $.ajax({
     url: urlpaciente,

@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url = "http://localhost:8081/api/v1/paciente/";
+let url = "http://localhost:8080/api/v1/paciente/";
 function listarPaciente() {
   $.ajax({
     url: url,
