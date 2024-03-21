@@ -367,7 +367,7 @@ function actualizarPaciente(){
     // alert("llena los campos correctamente")
     Swal.fire({
       title: "Error.",
-      text: "Complete los campos correctamente",
+      text: "Complete los campos correctamente.",
       icon: "error"
     });
   }

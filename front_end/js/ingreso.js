@@ -260,6 +260,21 @@ function registrarIngreso() {
   let fechasalida = document.getElementById("fechasalida").value;
   let estado = document.getElementById("estado").value;
 
+ // Convertir las fechas a objetos Date para compararlas
+ let fechaIngresoDate = new Date(fechaingreso);
+ let fechaSalidaDate = new Date(fechasalida);
+ 
+ // Verificar si la fecha de salida es anterior a la fecha de ingreso
+ if (fechaSalidaDate < fechaIngresoDate) {
+   Swal.fire({
+     title: "Error.",
+     text: "La fecha de salida no puede ser anterior a la fecha de ingreso.",
+     icon: "error"
+   });
+   return; // Detener la ejecución de la función
+ }
+
+
   let formData = {
 
     "paciente": pacientes,
@@ -433,6 +448,8 @@ function actualizarIngreso() {
   let fechaingreso = document.getElementById("fechaingreso").value;
   let fechasalida = document.getElementById("fechasalida").value;
   let estado = document.getElementById("estado").value;
+
+
 
   let formData = {
     "id": getParameterByName('ingreso'),
