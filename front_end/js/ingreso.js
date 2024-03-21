@@ -503,7 +503,7 @@ function filtrarIngreso() {
             '<td>' + item.medico.primer_nombre + '</td>' +
             '<td>' + item.paciente.primer_nombre + '</td>' +
             '<td>' + item.estado + '</td>' +
-            '<td><button class="btn btn-success actualizar" data-id="' + item.id_ingreso + '">editar</button><button id="' + item.id_ingreso + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_ingreso + '">eliminar</button></td>' +
+            '<td><button class="btn btn-success actualizar" data-id="' + item.id_ingreso + '">Editar</button><button id="' + item.id_ingreso + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_ingreso + '">Eliminar</button></td>' +
             '</tr>');
         });
       },
