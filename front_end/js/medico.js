@@ -69,7 +69,6 @@ function listarMedico() {
         }
     })
 }
-//Que es Cors
 function registrarMedico() {
 
     let tipo_documento = document.getElementById("tipo_documento").value;
@@ -109,7 +108,6 @@ function registrarMedico() {
                     text: "Su registro se guardó correctamente.",
                     icon: "success"
                 });
-                //Se coloca el enlace del pacienteRegistro
             },
             error: function (xhr, status, error) {
                 Swal.fire({
@@ -123,7 +121,7 @@ function registrarMedico() {
         // alert("llena los campos correctamente")
         Swal.fire({
             title: "Error",
-            text: "Complete los campos correctamente.",
+            text: "Complete los campos correctamente",
             icon: "error"
         });
     }
