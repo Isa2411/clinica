@@ -116,15 +116,15 @@ function registrarPaciente() {
       contentType: 'application/json',
       success: function (reslt) {
         Swal.fire({
-          title: "Excelente",
-          text: "Su registro se guardó correctamente",
+          title: "¡Excelente!",
+          text: "Su registro se guardó correctamente.",
           icon: "success"
         });
         //Se coloca el enlace de listapaciente: 
       },
       error: function (xhr, status, error) {
         Swal.fire({
-            title: "Error",
+            title: "Error.",
             text: xhr.responseText,
             icon: "danger"
         });
@@ -133,8 +133,8 @@ function registrarPaciente() {
   } else {
     // alert("llena los campos correctamente")
     Swal.fire({
-      title: "Error!",
-      text: "complete los campos correctamente",
+      title: "Error.",
+      text: "Complete los campos correctamente.",
       icon: "error"
     });
   }
@@ -258,11 +258,11 @@ $(document).ready(function(){
           data: {id: id},
           success: function(response){
               $("#dato-" + id).remove();
-              console.log("Dato eliminado correctamente");
+              console.log("Dato eliminado correctamente.");
               location.reload();
           },
           error: function(xhr, status, error){
-              console.error("Error al eliminar el dato:", error);
+              console.error("Error al eliminar el dato.", error);
           }
       });
   });
@@ -298,7 +298,7 @@ if(getParameterByName('paciente') != null){
               document.getElementById('celularPersonaContacto').value = response.celular_persona_contacto;
           },
           error: function(xhr, status, error) {
-              console.error("Error al obtener el dato:", error);
+              console.error("Error al obtener el dato.", error);
           }
       });
   });
@@ -357,7 +357,7 @@ function actualizarPaciente(){
       },
       error: function (xhr, status, error) {
         Swal.fire({
-            title: "Error",
+            title: "Error.",
             text: xhr.responseText,
             icon: "danger"
         });
@@ -366,8 +366,8 @@ function actualizarPaciente(){
   } else {
     // alert("llena los campos correctamente")
     Swal.fire({
-      title: "Error!",
-      text: "complete los campos correctamente",
+      title: "Error.",
+      text: "Complete los campos correctamente",
       icon: "error"
     });
   }

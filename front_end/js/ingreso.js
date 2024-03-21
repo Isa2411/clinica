@@ -280,8 +280,8 @@ function registrarIngreso() {
       contentType: 'application/json',
       success: function (reslt) {
         Swal.fire({
-          title: "Excelente",
-          text: "Su registro se guardó correctamente",
+          title: "¡Excelente!",
+          text: "Su registro se guardó correctamente.",
           icon: "success"
         });
         //Se coloca el enlace del pacienteRegistro
@@ -297,8 +297,8 @@ function registrarIngreso() {
   } else {
     // alert("llena los campos correctamente")
     Swal.fire({
-      title: "Error!",
-      text: "complete los campos correctamente",
+      title: "Error",
+      text: "Complete los campos correctamente.",
       icon: "error"
     });
   }
