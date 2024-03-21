@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url = "http://localhost:8080/api/v1/ingreso/";
+let url = "http://localhost:8081/api/v1/ingreso/";
 function listarIngreso() {
   $.ajax({
     url: url,
@@ -72,7 +72,8 @@ function listarIngreso() {
     },
   });
 }
-//que es Cors
+
+
 function registrarIngreso() {
   let habitacion = document.getElementById("habitacion").value;
   let cama = document.getElementById("cama").value;
@@ -82,7 +83,18 @@ function registrarIngreso() {
   let paciente = document.getElementById("paciente").value;
   let estado = document.getElementById("estado").value;
 
+  // Convertir las fechas en objetos Date
+  let fechaIngreso = new Date(fecha_ingreso);
+  let fechaSalida = new Date(fecha_salida);
 
+  // Verificar si la fecha de salida es anterior a la fecha de ingreso
+  if (fechaSalida < fechaIngreso) {
+    // Mostrar una alerta de error
+    alert("La fecha de salida no puede ser anterior a la fecha de ingreso");
+    return; // Detener el proceso de registro
+  }
+
+  // Continuar con el proceso de registro si la validación pasa
   let formData = {
     habitacion: habitacion,
     cama: cama,
@@ -99,7 +111,6 @@ function registrarIngreso() {
       type: "POST",
       data: formData,
       success: function (result) {
-
         console.log(result);
 
         Swal.fire({
@@ -121,6 +132,10 @@ function registrarIngreso() {
     Swal.fire("Error", "Faltan campos por llenar!", "error");
   }
 }
+
+
+
+
 function validarCampos() {
   let habitacion = document.getElementById("habitacion");
   return validarNumeroHabitacion(habitacion);
@@ -147,7 +162,7 @@ function CargarFormulario() {
 }
 
 function cargarMedico() {
-  let urlMedico = "http://localhost:8080/api/v1/medico/medicosactivos";
+  let urlMedico = "http://localhost:8081/api/v1/medico/medicosactivos";
 
   $.ajax({
     url: urlMedico,
@@ -172,46 +187,46 @@ function cargarMedico() {
   });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   $.ajax({
-      url: "http://localhost:8080/api/v1/medico/medicosactivos", 
-      method: 'GET',
-      dataType: 'json', 
-      success: function(response) {
-          $.each(response, function(index, medico) {
-              $('#medicos').append($('<option>', {
-                  value: medico.id_medico,
-                  text: medico.primer_nombre+" "+medico.primer_apellido
-              }));
-          });
-      },
-      error: function(xhr, status, error) {
-          console.error("Error al obtener las opciones:", error);
-      }
+    url: "http://localhost:8081/api/v1/medico/medicosactivos",
+    method: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      $.each(response, function (index, medico) {
+        $('#medicos').append($('<option>', {
+          value: medico.id_medico,
+          text: medico.primer_nombre + " " + medico.primer_apellido
+        }));
+      });
+    },
+    error: function (xhr, status, error) {
+      console.error("Error al obtener las opciones:", error);
+    }
   });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
   $.ajax({
-      url: "http://localhost:8080/api/v1/paciente/pacientesactivos", 
-      method: 'GET',
-      dataType: 'json', 
-      success: function(response) {
-          $.each(response, function(index, medico) {
-              $('#pacientes').append($('<option>', {
-                  value: medico.id_paciente,
-                  text: medico.primer_nombre+" "+medico.primer_apellido
-              }));
-          });
-      },
-      error: function(xhr, status, error) {
-          console.error("Error al obtener las opciones:", error);
-      }
+    url: "http://localhost:8081/api/v1/paciente/pacientesactivos",
+    method: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      $.each(response, function (index, medico) {
+        $('#pacientes').append($('<option>', {
+          value: medico.id_paciente,
+          text: medico.primer_nombre + " " + medico.primer_apellido
+        }));
+      });
+    },
+    error: function (xhr, status, error) {
+      console.error("Error al obtener las opciones:", error);
+    }
   });
 });
 
 function cargarPaciente() {
-  let urlpaciente = "http://localhost:8080/api/v1/paciente/";
+  let urlpaciente = "http://localhost:8081/api/v1/paciente/";
 
   $.ajax({
     url: urlpaciente,
@@ -236,7 +251,7 @@ function cargarPaciente() {
   });
 }
 
-function registrarIngreaso(){
+function registrarIngreso() {
   let habitacion = document.getElementById("habitacion").value;
   let cama = document.getElementById("cama").value;
   let pacientes = document.getElementById("pacientes").value;
@@ -254,44 +269,44 @@ function registrarIngreaso(){
     "fecha_ingreso": fechaingreso,
     "fecha_salida": fechasalida,
     "estado": estado,
-};
-var jsonData = JSON.stringify(formData);
-if (validarCamposAGuardar()) {
+  };
+  var jsonData = JSON.stringify(formData);
+  if (validarCamposAGuardar()) {
 
-  $.ajax({
+    $.ajax({
       url: url,
       type: "POST",
       data: jsonData,
       contentType: 'application/json',
       success: function (reslt) {
-          Swal.fire({
-              title: "Excelente",
-              text: "Su registro se guardó correctamente",
-              icon: "success"
-          });
-          //Se coloca el enlace del pacienteRegistro
+        Swal.fire({
+          title: "Excelente",
+          text: "Su registro se guardó correctamente",
+          icon: "success"
+        });
+        //Se coloca el enlace del pacienteRegistro
       },
       error: function (xhr, status, error) {
-          Swal.fire({
-              title: "Error",
-              text: xhr.responseText,
-              icon: "danger"
-          });
+        Swal.fire({
+          title: "Error",
+          text: xhr.responseText,
+          icon: "danger"
+        });
       }
-  });
-} else {
-  // alert("llena los campos correctamente")
-  Swal.fire({
+    });
+  } else {
+    // alert("llena los campos correctamente")
+    Swal.fire({
       title: "Error!",
       text: "complete los campos correctamente",
       icon: "error"
-  });
-}
+    });
+  }
 
 }
 
-function validarCamposAGuardar(){
-  return validarNull(document.getElementById("habitacion")) 
+function validarCamposAGuardar() {
+  return validarNull(document.getElementById("habitacion"))
     && validarNull(document.getElementById("cama"))
     && validarNull(document.getElementById("pacientes"))
     && validarNull(document.getElementById("medicos"))
@@ -300,13 +315,13 @@ function validarCamposAGuardar(){
     && validarNull(document.getElementById("estado"))
 }
 
-function validarNull(dato){
-  
+function validarNull(dato) {
+
   let valor = dato.value;
   let valido = true;
   if (valor.length > 0) {
-      valido = true
-  }else{
+    valido = true
+  } else {
     valido = false;
   }
 
@@ -319,59 +334,59 @@ function validarNull(dato){
   return valido;
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   $.ajax({
-      url: url,
-      method: 'GET',
-      dataType: 'json',
-      success: function(data) {
-          var tabla = $('#cuerpoTablaingreso tbody');
-          tabla.empty(); 
+    url: url,
+    method: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      var tabla = $('#cuerpoTablaingreso tbody');
+      tabla.empty();
 
-          $.each(data, function(index, item) {
-              tabla.append('<tr id="dato'+item.id+'">' +
-                              '<td>' + item.id_ingreso + '</td>' +
-                              '<td>' + item.habitacion + '</td>' +
-                              '<td>' + item.cama + '</td>' +
-                              '<td>' + item.fecha_ingreso + '</td>' +
-                              '<td>' + item.fecha_salida + '</td>' +
-                              '<td>' + item.medico.primer_nombre + '</td>' +
-                              '<td>' + item.paciente.primer_nombre + '</td>' +
-                              '<td>' + item.estado + '</td>' +
-                              '<td><button class="btn btn-success actualizar" data-id="'+item.id_ingreso+'">editar</button><button id="'+item.id_ingreso+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_ingreso+'">eliminar</button></td>' +
-                           '</tr>');
-          });
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-          console.log('Error: ' + textStatus, errorThrown);
-      }
-  });
-});
-
-$(document).ready(function(){
-  $("#cuerpoTablaingreso").on("click", ".eliminar-dato", function(){
-      var id = $(this).data("id");
-      $.ajax({
-          url: url+"eliminarPermanente/"+id,
-          method: "DELETE",
-          data: {id: id},
-          success: function(response){
-              $("#dato-" + id).remove();
-              console.log("Dato eliminado correctamente");
-              location.reload();
-          },
-          error: function(xhr, status, error){
-              console.error("Error al eliminar el dato:", error);
-          }
+      $.each(data, function (index, item) {
+        tabla.append('<tr id="dato' + item.id + '">' +
+          '<td>' + item.id_ingreso + '</td>' +
+          '<td>' + item.habitacion + '</td>' +
+          '<td>' + item.cama + '</td>' +
+          '<td>' + item.fecha_ingreso + '</td>' +
+          '<td>' + item.fecha_salida + '</td>' +
+          '<td>' + item.medico.primer_nombre + '</td>' +
+          '<td>' + item.paciente.primer_nombre + '</td>' +
+          '<td>' + item.estado + '</td>' +
+          '<td><button class="btn btn-success actualizar" data-id="' + item.id_ingreso + '">Editar</button><button id="' + item.id_ingreso + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_ingreso + '">Eliminar</button></td>' +
+          '</tr>');
       });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log('Error: ' + textStatus, errorThrown);
+    }
   });
 });
 
-$(document).ready(function(){
-  $("#cuerpoTablaingreso").on("click", ".actualizar", function(){
-      var id = $(this).data("id");
-      var url = "ingresoeditar.html?ingreso=" + encodeURIComponent(id);
-      window.location.href = url;
+$(document).ready(function () {
+  $("#cuerpoTablaingreso").on("click", ".eliminar-dato", function () {
+    var id = $(this).data("id");
+    $.ajax({
+      url: url + "eliminarPermanente/" + id,
+      method: "DELETE",
+      data: { id: id },
+      success: function (response) {
+        $("#dato-" + id).remove();
+        console.log("Dato eliminado correctamente");
+        location.reload();
+      },
+      error: function (xhr, status, error) {
+        console.error("Error al eliminar el dato:", error);
+      }
+    });
+  });
+});
+
+$(document).ready(function () {
+  $("#cuerpoTablaingreso").on("click", ".actualizar", function () {
+    var id = $(this).data("id");
+    var url = "ingresoeditar.html?ingreso=" + encodeURIComponent(id);
+    window.location.href = url;
   });
 });
 
@@ -379,38 +394,38 @@ function getParameterByName(name, url) {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+    results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-if(getParameterByName('ingreso') != null){
-  
-  $(document).ready(function(){
-      $.ajax({
-          url: url+getParameterByName('ingreso'), 
-          method: 'GET',
-          dataType: 'json', 
-          success: function(response) {
-              $('#resultado').text(response);
-              document.getElementById('habitacion').value = response.habitacion;
-              document.getElementById('cama').value = response.cama;
-              document.getElementById('pacientes').value = response.paciente.id_paciente;
-              document.getElementById('pacientes').disabled = true;
-              document.getElementById('medicos').value = response.medico.id_medico;
-              document.getElementById('fechaingreso').value = response.fecha_ingreso;
-              document.getElementById('fechasalida').value = response.fecha_salida;
-              document.getElementById('estado').value = response.estado;
-          },
-          error: function(xhr, status, error) {
-              console.error("Error al obtener el dato:", error);
-          }
-      });
+if (getParameterByName('ingreso') != null) {
+
+  $(document).ready(function () {
+    $.ajax({
+      url: url + getParameterByName('ingreso'),
+      method: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        $('#resultado').text(response);
+        document.getElementById('habitacion').value = response.habitacion;
+        document.getElementById('cama').value = response.cama;
+        document.getElementById('pacientes').value = response.paciente.id_paciente;
+        document.getElementById('pacientes').disabled = true;
+        document.getElementById('medicos').value = response.medico.id_medico;
+        document.getElementById('fechaingreso').value = response.fecha_ingreso;
+        document.getElementById('fechasalida').value = response.fecha_salida;
+        document.getElementById('estado').value = response.estado;
+      },
+      error: function (xhr, status, error) {
+        console.error("Error al obtener el dato:", error);
+      }
+    });
   });
 }
 
-function actualiarIngreso(){
+function actualizarIngreso() {
   let habitacion = document.getElementById("habitacion").value;
   let cama = document.getElementById("cama").value;
   let pacientes = document.getElementById("pacientes").value;
@@ -428,14 +443,14 @@ function actualiarIngreso(){
     "fecha_ingreso": fechaingreso,
     "fecha_salida": fechasalida,
     "estado": estado,
-};
+  };
   var jsonData = JSON.stringify(formData);
   console.log("JSON", jsonData)
 
   if (validarCamposAGuardar()) {
 
     $.ajax({
-      url: url+getParameterByName('ingreso'),
+      url: url + getParameterByName('ingreso'),
       type: "PUT",
       data: jsonData,
       contentType: 'application/json',
@@ -445,11 +460,11 @@ function actualiarIngreso(){
       },
       error: function (xhr, status, error) {
         Swal.fire({
-            title: "Error",
-            text: xhr.responseText,
-            icon: "danger"
+          title: "Error",
+          text: xhr.responseText,
+          icon: "danger"
         });
-    }
+      }
     });
   } else {
     // alert("llena los campos correctamente")
@@ -461,40 +476,40 @@ function actualiarIngreso(){
   }
 }
 
-function filtrarIngreso(){
+function filtrarIngreso() {
   var filtro = document.getElementById('filtroIngreso').value;
   var urlFiltro = '';
-  if(filtro == ''){
-      urlFiltro = url;
-  }else{
-      urlFiltro = url+"busquedafiltro/"+filtro
+  if (filtro == '') {
+    urlFiltro = url;
+  } else {
+    urlFiltro = url + "busquedafiltro/" + filtro
   }
-  $(document).ready(function(){
+  $(document).ready(function () {
     $.ajax({
-        url: urlFiltro,
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            var tabla = $('#cuerpoTablaingreso tbody');
-            tabla.empty(); 
-  
-            $.each(data, function(index, item) {
-              tabla.append('<tr id="dato'+item.id+'">' +
-              '<td>' + item.id_ingreso + '</td>' +
-              '<td>' + item.habitacion + '</td>' +
-              '<td>' + item.cama + '</td>' +
-              '<td>' + item.fecha_ingreso + '</td>' +
-              '<td>' + item.fecha_salida + '</td>' +
-              '<td>' + item.medico.primer_nombre + '</td>' +
-              '<td>' + item.paciente.primer_nombre + '</td>' +
-              '<td>' + item.estado + '</td>' +
-              '<td><button class="btn btn-success actualizar" data-id="'+item.id_ingreso+'">editar</button><button id="'+item.id_ingreso+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_ingreso+'">eliminar</button></td>' +
-           '</tr>');
-            });
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log('Error: ' + textStatus, errorThrown);
-        }
+      url: urlFiltro,
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        var tabla = $('#cuerpoTablaingreso tbody');
+        tabla.empty();
+
+        $.each(data, function (index, item) {
+          tabla.append('<tr id="dato' + item.id + '">' +
+            '<td>' + item.id_ingreso + '</td>' +
+            '<td>' + item.habitacion + '</td>' +
+            '<td>' + item.cama + '</td>' +
+            '<td>' + item.fecha_ingreso + '</td>' +
+            '<td>' + item.fecha_salida + '</td>' +
+            '<td>' + item.medico.primer_nombre + '</td>' +
+            '<td>' + item.paciente.primer_nombre + '</td>' +
+            '<td>' + item.estado + '</td>' +
+            '<td><button class="btn btn-success actualizar" data-id="' + item.id_ingreso + '">editar</button><button id="' + item.id_ingreso + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_ingreso + '">eliminar</button></td>' +
+            '</tr>');
+        });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log('Error: ' + textStatus, errorThrown);
+      }
     });
   });
 }

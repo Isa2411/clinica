@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url = "http://localhost:8080/api/v1/paciente/";
+let url = "http://localhost:8081/api/v1/paciente/";
 function listarPaciente() {
   $.ajax({
     url: url,
@@ -239,7 +239,7 @@ $(document).ready(function(){
                               '<td>' + item.nombre_persona_contacto + '</td>' +
                               '<td>' + item.celular_persona_contacto + '</td>' +
                               '<td>' + item.estado + '</td>' +
-                              '<td><button class="btn btn-success actualizar" data-id="'+item.id_paciente+'">editar</button><button id="'+item.id_paciente+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_paciente+'">eliminar</button></td>' +
+                              '<td><button class="btn btn-success actualizar" data-id="'+item.id_paciente+'">Editar</button><button id="'+item.id_paciente+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_paciente+'">Eliminar</button></td>' +
                            '</tr>');
           });
       },
@@ -405,7 +405,7 @@ function filtrarPaciente(){
                                 '<td>' + item.nombre_persona_contacto + '</td>' +
                                 '<td>' + item.celular_persona_contacto + '</td>' +
                                 '<td>' + item.estado + '</td>' +
-                                '<td><button class="btn btn-success actualizar" data-id="'+item.id_paciente+'">editar</button><button id="'+item.id_paciente+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_paciente+'">eliminar</button></td>' +
+                                '<td><button class="btn btn-success actualizar" data-id="'+item.id_paciente+'">Editar</button><button id="'+item.id_paciente+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_paciente+'">Eliminar</button></td>' +
                              '</tr>');
             });
         },
