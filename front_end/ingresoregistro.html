@@ -17,7 +17,7 @@
     <script src="js/ingreso.js"></script>
 
     <style>
-        .registrarIngreso {
+        #titulo {
             background-color: #0000ff;
             color: white;
             padding: 20px;
@@ -26,7 +26,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
             margin-bottom: 20px;
-            
         }
 
         .row {
@@ -34,7 +33,7 @@
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
-            
+
         }
 
         /* Estilos para la alineación de los elementos del formulario */
@@ -59,8 +58,13 @@
 </head>
 
 <body>
-    <h1 class="registrarIngreso">Registrar ingreso</h1>
-    <div class="container">
+    <!-- Title -->
+    <div id="titulo" class="container py-4">
+        <h2>Registrar médicos</h2>
+    </div>
+
+    <!-- Formulario -->
+    <div id="formulario" class="container mt-5">
         <div class="row">
             <div class="col-md-4">
                 <label for="habitacion" class="form-label">Habitación:</label>
@@ -69,18 +73,17 @@
             </div>
             <div class="col-md-4">
                 <label for="cama" class="form-label">Cama:</label>
-                <input type="number" class="form-control" name="cama" id="cama"
-                onfocusout="validarNull(this);">
+                <input type="number" class="form-control" name="cama" id="cama" onfocusout="validarNull(this);">
             </div>
             <div class="col-md-4">
                 <label for="paciente" class="form-label">Paciente:</label>
-                <select id="pacientes" class="form-select" >
+                <select id="pacientes" class="form-select">
                     <option value="">Selecciona el paciente:</option>
                 </select>
             </div>
             <div class="col-md-4">
                 <label for="medico" class="form-label">Médico:</label>
-                <select id="medicos" class="form-select" >
+                <select id="medicos" class="form-select">
                     <option value="">Selecciona el médico:</option>
                 </select>
             </div>

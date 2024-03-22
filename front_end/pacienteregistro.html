@@ -17,7 +17,7 @@
     <script src="js/paciente.js"></script>
 
     <style>
-        .registrarPacienteT {
+        #titulo {
             background-color: #0000ff;
             color: white;
             padding: 20px;
@@ -51,8 +51,11 @@
 </head>
 
 <body>
-    <h1 class="registrarPacienteT">Registrar pacientes</h1>
-    <div class="container">
+    <div id="titulo" class="container py-4">
+        <h2>Registrar pacientes</h2>
+    </div>
+
+    <div id="formulario" class="container mt-5">
         <div class="row">
             <div class="col-md-4">
                 <label for="tipo_documento" class="form-label">Tipo identificación:</label>
