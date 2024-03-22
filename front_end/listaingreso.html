@@ -35,7 +35,6 @@
         }
 
         .tabla-container {
-            overflow-x: auto; /* Esto permite el desplazamiento horizontal si es necesario */
             margin-top: 20px;
             padding: 20px;
             border-radius: 10px;
@@ -52,7 +51,7 @@
 
 <body>
     <div id="titulo" class="container py-4">
-        <h2>Lista de ingresos</h2>
+        <h2>Lista de Ingresos</h2>
     </div>
 
     <div class="container">
@@ -63,17 +62,27 @@
     </div>
 
     <div class="tabla-container container">
-        <div class="col-md-4">
-            <label for="filtrar" class="form-label">Filtrar</label>
-            <input type="text" class="form-control" name="filtroIngreso" id="filtroIngreso" step="1" 
-            onfocusout="filtrarIngreso(this);">
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="filtroIngreso" class="form-label">Filtrar</label>
+                <input type="text" class="form-control" name="filtroIngreso" id="filtroIngreso" step="1"
+                    onkeyup="filtrarIngreso();" placeholder="Buscar...">
+            </div>
+            <div class="col-md-3">
+                <label for="fechaIngreso" class="form-label">Fecha de ingreso</label>
+                <input type="date" class="form-control" id="fechaIngreso" onchange="filtrarIngreso();">
+            </div>
+            <div class="col-md-3">
+                <label for="fechaSalida" class="form-label">Fecha de salida</label>
+                <input type="date" class="form-control" id="fechaSalida" onchange="filtrarIngreso();">
+            </div>
         </div>
         <table class="table table-hover mt-2" id="cuerpoTablaingreso">
             <thead class="table-light">
                 <tr>
                     <th scope="col">Código del ingreso</th>
-                    <th scope="col">N°. habitación</th>
-                    <th scope="col">N°. cama</th>
+                    <th scope="col">N°. Habitación</th>
+                    <th scope="col">N°. Cama</th>
                     <th scope="col">Fecha de ingreso</th>
                     <th scope="col">Fecha de salida</th>
                     <th scope="col">Médico</th>
