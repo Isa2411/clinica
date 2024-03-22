@@ -95,6 +95,12 @@ function registrarMedico() {
     };
     var jsonData = JSON.stringify(formData);
 
+
+
+
+
+    
+
     if (validarCampos()) {
 
         $.ajax({
