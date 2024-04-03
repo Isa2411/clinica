@@ -129,7 +129,7 @@ function registrarIngreso() {
       },
     });
   } else {
-    Swal.fire("Error", "Faltan campos por llenar!", "error");
+    Swal.fire("Error", "Faltan campos por llenar", "error");
   }
 }
 
@@ -495,43 +495,15 @@ function actualizarIngreso() {
 
 function filtrarIngreso() {
   var filtro = document.getElementById("filtroIngreso").value.toLowerCase();
-  var fechaIngreso = document.getElementById("fechaIngreso").value;
-  var fechaSalida = document.getElementById("fechaSalida").value;
-
-  // Convertir las fechas a objetos Date para compararlas
-  var fechaInicio = new Date(fechaIngreso);
-  var fechaFin = new Date(fechaSalida);
-
   var tabla = document.getElementById("cuerpoTablaingreso");
   var tr = tabla.getElementsByTagName("tr");
   for (var i = 0; i < tr.length; i++) {
-      var tdCodigo = tr[i].getElementsByTagName("td")[0];
       var tdHabitacion = tr[i].getElementsByTagName("td")[1];
       var tdCama = tr[i].getElementsByTagName("td")[2];
-      var tdFechaIngreso = tr[i].getElementsByTagName("td")[3];
-      var tdFechaSalida = tr[i].getElementsByTagName("td")[4];
-      var tdMedico = tr[i].getElementsByTagName("td")[5];
-      var tdPaciente = tr[i].getElementsByTagName("td")[6];
-      var tdEstado = tr[i].getElementsByTagName("td")[7];
-      if (tdCodigo || tdHabitacion || tdCama || tdFechaIngreso || tdFechaSalida || tdMedico || tdPaciente || tdEstado) {
-          var codigoValue = tdCodigo.textContent || tdCodigo.innerText;
+      if (tdHabitacion || tdCama) {
           var habitacionValue = tdHabitacion.textContent || tdHabitacion.innerText;
           var camaValue = tdCama.textContent || tdCama.innerText;
-          var fechaIngresoValue = tdFechaIngreso.textContent || tdFechaIngreso.innerText;
-          var fechaSalidaValue = tdFechaSalida.textContent || tdFechaSalida.innerText;
-          var medicoValue = tdMedico.textContent || tdMedico.innerText;
-          var pacienteValue = tdPaciente.textContent || tdPaciente.innerText;
-          var estadoValue = tdEstado.textContent || tdEstado.innerText;
-          
-          // Convertir las fechas de los registros a objetos Date
-          var fechaRegistroIngreso = new Date(fechaIngresoValue);
-          var fechaRegistroSalida = new Date(fechaSalidaValue);
-
-          if ((codigoValue.toLowerCase().indexOf(filtro) > -1 || habitacionValue.toLowerCase().indexOf(filtro) > -1 ||
-              camaValue.toLowerCase().indexOf(filtro) > -1 || medicoValue.toLowerCase().indexOf(filtro) > -1 ||
-              pacienteValue.toLowerCase().indexOf(filtro) > -1 || estadoValue.toLowerCase().indexOf(filtro) >
-              -1) &&
-              (fechaRegistroIngreso >= fechaInicio && fechaRegistroSalida <= fechaFin)) {
+          if (habitacionValue.toLowerCase().indexOf(filtro) > -1 || camaValue.toLowerCase().indexOf(filtro) > -1) {
               tr[i].style.display = "";
           } else {
               tr[i].style.display = "none";
