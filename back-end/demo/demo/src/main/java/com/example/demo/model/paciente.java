@@ -31,31 +31,31 @@ public class paciente {
 	@Column(name = "tipo_documento", nullable = false, length = 2)
 	private String tipo_documento;
 	
-	@Column(name = "numero_documento", nullable = false, length = 40)
+	@Column(name = "numero_documento", nullable = false, length = 10)
 	private String numero_documento;
 	
-	@Column(name = "primer_nombre", nullable = false, length = 100)
+	@Column(name = "primer_nombre", nullable = false, length = 50)
 	private String primer_nombre;
 	
-	@Column(name = "segundo_nombre", nullable = true, length = 100)
+	@Column(name = "segundo_nombre", nullable = true, length = 50)
 	private String segundo_nombre;
 	
-	@Column(name = "primer_apellido", nullable = false, length = 100)
+	@Column(name = "primer_apellido", nullable = false, length = 50)
 	private String primer_apellido;
 	
-	@Column(name = "segundo_apellido", nullable = true, length = 100)
+	@Column(name = "segundo_apellido", nullable = true, length = 50)
 	private String segundo_apellido;
 	
-	@Column(name = "celular", nullable = false, length = 50)
+	@Column(name = "celular", nullable = false, length = 10)
 	private String celular;
 	
-	@Column(name = "correo", nullable = false, length = 255)
+	@Column(name = "correo", nullable = false, length = 50)
 	private String correo;
 	
-	@Column(name = "nombre_persona_contacto", nullable = false, length = 100)
+	@Column(name = "nombre_persona_contacto", nullable = false, length = 50)
 	private String nombre_persona_contacto;
 	
-	@Column(name = "celular_persona_contacto", nullable = false, length = 50)
+	@Column(name = "celular_persona_contacto", nullable = false, length = 10)
 	private String celular_persona_contacto;
 	
 	@Column(name = "estado", nullable = false, length = 20)

@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url = "http://localhost:8081/api/v1/paciente/";
+let url = "http://localhost:8082/api/v1/paciente/";
 function listarPaciente() {
   $.ajax({
     url: url,
@@ -120,15 +120,15 @@ function registrarPaciente() {
           text: "Su registro se guardó correctamente.",
           icon: "success"
         });
-        //Se coloca el enlace de listapaciente: 
+        limpiarCampos(); // Limpia los campos después de un registro exitoso
       },
       error: function (xhr, status, error) {
         Swal.fire({
-            title: "Error.",
-            text: xhr.responseText,
-            icon: "danger"
+          title: "Error.",
+          text: xhr.responseText,
+          icon: "danger"
         });
-    }
+      }
     });
   } else {
     // alert("llena los campos correctamente")
@@ -138,6 +138,21 @@ function registrarPaciente() {
       icon: "error"
     });
   }
+}
+
+// Función para limpiar los campos del formulario después de un registro exitoso
+function limpiarCampos() {
+  document.getElementById("tipo_documento").value = "";
+  document.getElementById("numero_documento").value = "";
+  document.getElementById("primer_nombre").value = "";
+  document.getElementById("segundo_nombre").value = "";
+  document.getElementById("primer_apellido").value = "";
+  document.getElementById("segundo_apellido").value = "";
+  document.getElementById("correo_electronico").value = "";
+  document.getElementById("celular").value = "";
+  document.getElementById("nombrePersonaContacto").value = "";
+  document.getElementById("celularPersonaContacto").value = "";
+  document.getElementById("estado").value = "";
 }
 
 function validarCampos() {
@@ -216,91 +231,91 @@ function validarAcudiente(Acudiente) {
   return valido;
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   $.ajax({
-      url: url,
+    url: url,
+    method: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      var tabla = $('#cuerpoTablaPaciente tbody');
+      tabla.empty();
+
+      $.each(data, function (index, item) {
+        tabla.append('<tr id="dato' + item.id + '">' +
+          '<td>' + item.id_paciente + '</td>' +
+          '<td>' + item.tipo_documento + '</td>' +
+          '<td>' + item.numero_documento + '</td>' +
+          '<td>' + item.primer_nombre + '</td>' +
+          '<td>' + item.segundo_nombre + '</td>' +
+          '<td>' + item.primer_apellido + '</td>' +
+          '<td>' + item.segundo_apellido + '</td>' +
+          '<td>' + item.celular + '</td>' +
+          '<td>' + item.correo + '</td>' +
+          '<td>' + item.nombre_persona_contacto + '</td>' +
+          '<td>' + item.celular_persona_contacto + '</td>' +
+          '<td>' + item.estado + '</td>' +
+          '<td><button class="btn btn-success actualizar" data-id="' + item.id_paciente + '">Editar</button><button id="' + item.id_paciente + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_paciente + '">Eliminar</button></td>' +
+          '</tr>');
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log('Error: ' + textStatus, errorThrown);
+    }
+  });
+});
+
+$(document).ready(function () {
+  $("#cuerpoTablaPaciente").on("click", ".eliminar-dato", function () {
+    var id = $(this).data("id");
+    $.ajax({
+      url: url + "eliminarPermanente/" + id,
+      method: "DELETE",
+      data: { id: id },
+      success: function (response) {
+        $("#dato-" + id).remove();
+        console.log("Dato eliminado correctamente.");
+        location.reload();
+      },
+      error: function (xhr, status, error) {
+        console.error("Error al eliminar el dato.", error);
+      }
+    });
+  });
+});
+
+$(document).ready(function () {
+  $("#cuerpoTablaPaciente").on("click", ".actualizar", function () {
+    var id = $(this).data("id");
+    var url = "pacienteactualizar.html?paciente=" + encodeURIComponent(id);
+    window.location.href = url;
+  });
+});
+
+if (getParameterByName('paciente') != null) {
+
+  $(document).ready(function () {
+    $.ajax({
+      url: url + getParameterByName('paciente'),
       method: 'GET',
       dataType: 'json',
-      success: function(data) {
-          var tabla = $('#cuerpoTablaPaciente tbody');
-          tabla.empty(); 
-
-          $.each(data, function(index, item) {
-              tabla.append('<tr id="dato'+item.id+'">' +
-                              '<td>' + item.id_paciente + '</td>' +
-                              '<td>' + item.tipo_documento + '</td>' +
-                              '<td>' + item.numero_documento + '</td>' +
-                              '<td>' + item.primer_nombre + '</td>' +
-                              '<td>' + item.segundo_nombre + '</td>' +
-                              '<td>' + item.primer_apellido + '</td>' +
-                              '<td>' + item.segundo_apellido + '</td>' +
-                              '<td>' + item.celular + '</td>' +
-                              '<td>' + item.correo + '</td>' +
-                              '<td>' + item.nombre_persona_contacto + '</td>' +
-                              '<td>' + item.celular_persona_contacto + '</td>' +
-                              '<td>' + item.estado + '</td>' +
-                              '<td><button class="btn btn-success actualizar" data-id="'+item.id_paciente+'">Editar</button><button id="'+item.id_paciente+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_paciente+'">Eliminar</button></td>' +
-                           '</tr>');
-          });
+      success: function (response) {
+        $('#resultado').text(response);
+        document.getElementById('numero_documento').value = response.numero_documento;
+        document.getElementById('primer_nombre').value = response.primer_nombre;
+        document.getElementById('segundo_nombre').value = response.segundo_nombre;
+        document.getElementById('primer_apellido').value = response.primer_apellido;
+        document.getElementById('segundo_apellido').value = response.segundo_apellido;
+        document.getElementById('celular').value = response.celular;
+        document.getElementById('correo_electronico').value = response.correo;
+        document.getElementById('estado').value = response.estado;
+        document.getElementById('tipo_documento').value = response.tipo_documento;
+        document.getElementById('nombrePersonaContacto').value = response.nombre_persona_contacto;
+        document.getElementById('celularPersonaContacto').value = response.celular_persona_contacto;
       },
-      error: function(jqXHR, textStatus, errorThrown) {
-          console.log('Error: ' + textStatus, errorThrown);
+      error: function (xhr, status, error) {
+        console.error("Error al obtener el dato.", error);
       }
-  });
-});
-
-$(document).ready(function(){
-  $("#cuerpoTablaPaciente").on("click", ".eliminar-dato", function(){
-      var id = $(this).data("id");
-      $.ajax({
-          url: url+"eliminarPermanente/"+id,
-          method: "DELETE",
-          data: {id: id},
-          success: function(response){
-              $("#dato-" + id).remove();
-              console.log("Dato eliminado correctamente.");
-              location.reload();
-          },
-          error: function(xhr, status, error){
-              console.error("Error al eliminar el dato.", error);
-          }
-      });
-  });
-});
-
-$(document).ready(function(){
-  $("#cuerpoTablaPaciente").on("click", ".actualizar", function(){
-      var id = $(this).data("id");
-      var url = "pacienteactualizar.html?paciente=" + encodeURIComponent(id);
-      window.location.href = url;
-  });
-});
-
-if(getParameterByName('paciente') != null){
-  
-  $(document).ready(function(){
-      $.ajax({
-          url: url+getParameterByName('paciente'), 
-          method: 'GET',
-          dataType: 'json', 
-          success: function(response) {
-              $('#resultado').text(response);
-              document.getElementById('numero_documento').value = response.numero_documento;
-              document.getElementById('primer_nombre').value = response.primer_nombre;
-              document.getElementById('segundo_nombre').value = response.segundo_nombre;
-              document.getElementById('primer_apellido').value = response.primer_apellido;
-              document.getElementById('segundo_apellido').value = response.segundo_apellido;
-              document.getElementById('celular').value = response.celular;
-              document.getElementById('correo_electronico').value = response.correo;
-              document.getElementById('estado').value = response.estado;
-              document.getElementById('tipo_documento').value = response.tipo_documento;
-              document.getElementById('nombrePersonaContacto').value = response.nombre_persona_contacto;
-              document.getElementById('celularPersonaContacto').value = response.celular_persona_contacto;
-          },
-          error: function(xhr, status, error) {
-              console.error("Error al obtener el dato.", error);
-          }
-      });
+    });
   });
 }
 
@@ -308,13 +323,13 @@ function getParameterByName(name, url) {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+    results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function actualizarPaciente(){
+function actualizarPaciente() {
   let tipo_documento = document.getElementById("tipo_documento").value;
   let numero_documento = document.getElementById("numero_documento").value;
   let primer_nombre = document.getElementById("primer_nombre").value;
@@ -347,7 +362,7 @@ function actualizarPaciente(){
   if (validarCampos()) {
 
     $.ajax({
-      url: url+getParameterByName('paciente'),
+      url: url + getParameterByName('paciente'),
       type: "PUT",
       data: jsonData,
       contentType: 'application/json',
@@ -357,11 +372,11 @@ function actualizarPaciente(){
       },
       error: function (xhr, status, error) {
         Swal.fire({
-            title: "Error.",
-            text: xhr.responseText,
-            icon: "danger"
+          title: "Error.",
+          text: xhr.responseText,
+          icon: "danger"
         });
-    }
+      }
     });
   } else {
     // alert("llena los campos correctamente")
@@ -373,45 +388,45 @@ function actualizarPaciente(){
   }
 }
 
-function filtrarPaciente(){
+function filtrarPaciente() {
   var filtro = document.getElementById('filtroPaciente').value;
-  console.log("FILTRO ",filtro)
+  console.log("FILTRO ", filtro)
   var urlFiltro = '';
-  if(filtro == ''){
-      urlFiltro = url;
-  }else{
-      urlFiltro = url+"busquedafiltro/"+filtro
+  if (filtro == '') {
+    urlFiltro = url;
+  } else {
+    urlFiltro = url + "busquedafiltro/" + filtro
   }
-  $(document).ready(function(){
+  $(document).ready(function () {
     $.ajax({
-        url: urlFiltro,
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            var tabla = $('#cuerpoTablaPaciente tbody');
-            tabla.empty(); 
-  
-            $.each(data, function(index, item) {
-                tabla.append('<tr id="dato'+item.id+'">' +
-                                '<td>' + item.id_paciente + '</td>' +
-                                '<td>' + item.tipo_documento + '</td>' +
-                                '<td>' + item.numero_documento + '</td>' +
-                                '<td>' + item.primer_nombre + '</td>' +
-                                '<td>' + item.segundo_nombre + '</td>' +
-                                '<td>' + item.primer_apellido + '</td>' +
-                                '<td>' + item.segundo_apellido + '</td>' +
-                                '<td>' + item.celular + '</td>' +
-                                '<td>' + item.correo + '</td>' +
-                                '<td>' + item.nombre_persona_contacto + '</td>' +
-                                '<td>' + item.celular_persona_contacto + '</td>' +
-                                '<td>' + item.estado + '</td>' +
-                                '<td><button class="btn btn-success actualizar" data-id="'+item.id_paciente+'">Editar</button><button id="'+item.id_paciente+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_paciente+'">Eliminar</button></td>' +
-                             '</tr>');
-            });
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log('Error: ' + textStatus, errorThrown);
-        }
+      url: urlFiltro,
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        var tabla = $('#cuerpoTablaPaciente tbody');
+        tabla.empty();
+
+        $.each(data, function (index, item) {
+          tabla.append('<tr id="dato' + item.id + '">' +
+            '<td>' + item.id_paciente + '</td>' +
+            '<td>' + item.tipo_documento + '</td>' +
+            '<td>' + item.numero_documento + '</td>' +
+            '<td>' + item.primer_nombre + '</td>' +
+            '<td>' + item.segundo_nombre + '</td>' +
+            '<td>' + item.primer_apellido + '</td>' +
+            '<td>' + item.segundo_apellido + '</td>' +
+            '<td>' + item.celular + '</td>' +
+            '<td>' + item.correo + '</td>' +
+            '<td>' + item.nombre_persona_contacto + '</td>' +
+            '<td>' + item.celular_persona_contacto + '</td>' +
+            '<td>' + item.estado + '</td>' +
+            '<td><button class="btn btn-success actualizar" data-id="' + item.id_paciente + '">Editar</button><button id="' + item.id_paciente + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_paciente + '">Eliminar</button></td>' +
+            '</tr>');
+        });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log('Error: ' + textStatus, errorThrown);
+      }
     });
   });
 }

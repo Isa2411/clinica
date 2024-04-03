@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url = "http://localhost:8081/api/v1/medico/";
+let url = "http://localhost:8082/api/v1/medico/";
 function listarMedico() {
     $.ajax({
         url: url,
@@ -95,12 +95,6 @@ function registrarMedico() {
     };
     var jsonData = JSON.stringify(formData);
 
-
-
-
-
-    
-
     if (validarCampos()) {
 
         $.ajax({
@@ -114,6 +108,8 @@ function registrarMedico() {
                     text: "Su registro se guardó correctamente.",
                     icon: "success"
                 });
+                // Llamar a la función para limpiar los campos del formulario
+                limpiarCampos();
             },
             error: function (xhr, status, error) {
                 Swal.fire({
@@ -132,7 +128,18 @@ function registrarMedico() {
         });
     }
 }
-
+// Función para limpiar los campos del formulario después de un registro exitoso
+function limpiarCampos() {
+    document.getElementById("tipo_documento").value = "";
+    document.getElementById("numero_documento").value = "";
+    document.getElementById("primer_nombre").value = "";
+    document.getElementById("segundo_nombre").value = "";
+    document.getElementById("primer_apellido").value = "";
+    document.getElementById("segundo_apellido").value = "";
+    document.getElementById("correo_electronico").value = "";
+    document.getElementById("celular").value = "";
+    document.getElementById("estado").value = "";
+}
 function validarCampos() {
     let numero_documento = document.getElementById("numero_documento");
     var primer_nombre = document.getElementById("primer_nombre");

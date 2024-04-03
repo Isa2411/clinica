@@ -17,7 +17,7 @@
     <script src="js/paciente.js"></script>
 
     <style>
-        .registrarPacienteT {
+        #titulo {
             background-color: #0000ff;
             color: white;
             padding: 20px;
@@ -51,12 +51,16 @@
 </head>
 
 <body>
-    <h1 class="registrarPacienteT">Actualizar paciente</h1>
+    <div id="titulo" class="container py-4">
+        <h2>Registrar pacientes:</h2>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <label for="tipo_documento" class="form-label">Tipo identificación</label>
-                <select class="form-select" id="tipo_documento" name="tipo_documento" focusout="validarTipo_documento(this);">
+                <select class="form-select" id="tipo_documento" name="tipo_documento"
+                    focusout="validarTipo_documento(this);">
                     <option selected disabled value="">Seleccione una Opción</option>
                     <option value="RC">Registro civil</option>
                     <option value="TI">Tarjeta de identidad</option>
