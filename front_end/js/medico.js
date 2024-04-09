@@ -95,6 +95,44 @@ function registrarMedico() {
     };
     var jsonData = JSON.stringify(formData);
 
+    $.ajax({
+        url: "http://localhost:8082/api/v1/medico/existsByNumeroDocumento/" + numero_documento,
+        type: 'GET',
+        success: function (response) {
+            if (response) {
+                Swal.fire({
+                    title: "Error",
+                    text: "El número de documento ya esta registrado.",
+                    icon: "error"
+                });
+            }else{
+                // Si el médico no existe, procede con guardar el nuevo médico
+                $.ajax({
+                    url: "http://localhost:8082/api/v1/medico/" ,
+                    type: "POST",
+                    data: JSON.stringify(formData),
+                    success: function (response){
+                        Swal.fire({
+                            title: "Excelente",
+                            text: "Su registro se guardó correctamente.",
+                            icon: "success"
+                        });
+                        //llamar a la fucnion para limpiar  los campos del formuario
+                        limpiarCampos();
+                    },
+                    error: function (xhr, status, error) {
+                        //mostrar alerta de error si la peticion falla
+                        Swal.fire({
+                            title: "Error",
+                            text: "Error en la petición: " + error,
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        }
+    })
+
     if (validarCampos()) {
 
         $.ajax({
@@ -167,18 +205,24 @@ function validarNumeroDocumento(cuadroNumero) {
 
 function validarNombreApellido(campo) {
     var valido = true;
-    if (campo.value.length < 3 || campo.value.length > 30) {
+    var regex = /^[a-zA-ZÁÉÍÓÚÑáéíóúñ\s]*$/; // Expresión regular para permitir solo letras, espacios y letras acentuadas
+
+    if (campo.value.length < 3 || campo.value.length > 30 || !regex.test(campo.value)) {
         valido = false;
+        alert("Por favor, ingrese un " + (campo.id === 'correo_electronico' ? "correo electrónico" : "nombre o apellido") + " válido en el campo " + campo.id);
     }
 
     if (valido) {
-        campo.className = "form-control is-valid"
+        campo.className = "form-control is-valid";
+    } else {
+        campo.className = "form-control is-invalid";
     }
-    else {
-        campo.className = "form-control is-invalid"
-    }
+
     return valido;
 }
+
+
+
 function validarCelular(Numero) {
 
     let valor = Numero.value;

@@ -51,4 +51,10 @@ public class medicoService implements ImedicoService {
 		data.deleteById(id_medico);
 		return 1;
 		}
+
+	@Override
+	public boolean existsByNumerodocumento(String numero_documento) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

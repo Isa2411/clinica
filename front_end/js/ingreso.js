@@ -94,6 +94,12 @@ function registrarIngreso() {
     return; // Detener el proceso de registro
   }
 
+  // Verificar si la cama está ocupada
+  if (camaOcupada(cama)) {
+    // Mostrar una alerta de error
+    alert("La cama está ocupada");
+    return; // Detener el proceso de registro
+  }
   // Continuar con el proceso de registro si la validación pasa
   let formData = {
     habitacion: habitacion,
@@ -121,6 +127,12 @@ function registrarIngreso() {
           timer: 1500
         });
 
+
+
+        // Limpiar los campos después del registro
+        limpiarCampos();
+
+        // Redirigir a la página de lista de ingresos
         window.location.href = "listaingreso.html";
       },
       error: function (error) {
@@ -133,7 +145,26 @@ function registrarIngreso() {
   }
 }
 
+function camaOcupada(cama) {
+  // Aquí debes implementar la lógica para verificar si la cama está ocupada
+  // Puedes hacer una petición a tu API para obtener el estado de la cama
+  // Si la cama está ocupada, devuelve true; de lo contrario, devuelve false
+  // Por ahora, retornamos false para simular que la cama no está ocupada
+  return false;
+}
 
+function limpiarCampos() {
+  // Aquí debes implementar la lógica para limpiar los campos del formulario
+  // Puedes establecer el valor de los campos a una cadena vacía o al valor predeterminado
+  // Por ejemplo:
+  document.getElementById("habitacion").value = "";
+  document.getElementById("cama").value = "";
+  document.getElementById("fecha_ingreso").value = "";
+  document.getElementById("fecha_salida").value = "";
+  document.getElementById("medico").value = "";
+  document.getElementById("paciente").value = "";
+  document.getElementById("estado").value = "";
+}
 
 
 function validarCampos() {
@@ -473,7 +504,6 @@ function actualizarIngreso() {
       contentType: 'application/json',
       success: function (reslt) {
         window.location.href = 'listaingreso.html';
-        //Se coloca el enlace de listapaciente: 
       },
       error: function (xhr, status, error) {
         Swal.fire({
@@ -486,9 +516,9 @@ function actualizarIngreso() {
   } else {
     // alert("llena los campos correctamente")
     Swal.fire({
-      title: "Error!",
-      text: "complete los campos correctamente",
-      icon: "error"
+      title: "Error",
+      text: "Complete los campos correctamente",
+      icon: "danger"
     });
   }
 }
@@ -498,16 +528,16 @@ function filtrarIngreso() {
   var tabla = document.getElementById("cuerpoTablaingreso");
   var tr = tabla.getElementsByTagName("tr");
   for (var i = 0; i < tr.length; i++) {
-      var tdHabitacion = tr[i].getElementsByTagName("td")[1];
-      var tdCama = tr[i].getElementsByTagName("td")[2];
-      if (tdHabitacion || tdCama) {
-          var habitacionValue = tdHabitacion.textContent || tdHabitacion.innerText;
-          var camaValue = tdCama.textContent || tdCama.innerText;
-          if (habitacionValue.toLowerCase().indexOf(filtro) > -1 || camaValue.toLowerCase().indexOf(filtro) > -1) {
-              tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
-          }
+    var tdHabitacion = tr[i].getElementsByTagName("td")[1];
+    var tdCama = tr[i].getElementsByTagName("td")[2];
+    if (tdHabitacion || tdCama) {
+      var habitacionValue = tdHabitacion.textContent || tdHabitacion.innerText;
+      var camaValue = tdCama.textContent || tdCama.innerText;
+      if (habitacionValue.toLowerCase().indexOf(filtro) > -1 || camaValue.toLowerCase().indexOf(filtro) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
       }
+    }
   }
 }

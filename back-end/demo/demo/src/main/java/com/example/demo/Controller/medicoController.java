@@ -19,9 +19,21 @@ public class medicoController {
 	public ResponseEntity<Object> save(
 			@RequestBody medico medico
 			){
+		//Validar si el medicoya existe con el mismo numeor de docuemnto
+		if (medicoService.existsByNumerodocumento(medico.getNumero_documento())) {
+			return new ResponseEntity<>("El medico ya existe", HttpStatus.BAD_REQUEST);
+		}else {
+			//Si no existe, se guarda correctamente
 		medico.crearMedico();
 		medicoService.save(medico);
 		return new ResponseEntity<>(medico,HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/existsByNumeroDocumento/{numero_documento}")
+	public ResponseEntity<Boolean> existsByNumeroDocumento(@PathVariable("numero_documento") String numeroDocumento) {
+	    boolean exists = medicoService.existsByNumerodocumento(numeroDocumento);
+	    return ResponseEntity.ok(exists);
 	}
 	
 	@GetMapping("/")

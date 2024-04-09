@@ -12,4 +12,5 @@ public interface ImedicoService {
 	public Optional<medico> findOne(String id_medico);
 	public int delete(String id_medico);
 	List<medico> filtroMedico(String filtro);
+	public boolean  existsByNumerodocumento(String numero_documento);
 }
