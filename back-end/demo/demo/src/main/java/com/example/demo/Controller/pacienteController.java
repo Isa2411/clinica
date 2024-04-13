@@ -21,6 +21,9 @@ public class pacienteController {
 			@RequestBody paciente paciente
 			){
 		paciente.crearPaciente();
+		if (pacienteService.existsByNumerodocumento(paciente.getNumero_documento())) {
+			return new ResponseEntity<>("El numero del documento del paciente ya existe", HttpStatus.BAD_REQUEST);
+		}
 		pacienteService.save(paciente);
 		return new ResponseEntity<>(paciente,HttpStatus.OK);
 	}

@@ -12,8 +12,8 @@ public interface Iingreso extends CrudRepository<ingreso,String>{
 			
 			+ "m.id_ingreso LIKE %?1% OR "
 			+ "m.habitacion LIKE %?1% OR "
-			+ "m.cama LIKE %?1% OR "
-			+ "m.estado LIKE %?1%")
+			+ "m.estado LIKE %?1% OR "
+			+ "m.cama LIKE %?1% ")
 	
 	List<ingreso> filtroIngreso(String filtro);
 

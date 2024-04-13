@@ -2,6 +2,7 @@ package com.example.demo.interfaces;
 
 import java.util.List;
 
+import com.example.demo.model.medico;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.example.demo.model.paciente;
@@ -27,6 +28,9 @@ public interface Ipaciente extends CrudRepository<paciente,String>{
 
 	@Query("SELECT m FROM paciente m WHERE m.estado =?1")
 	List<paciente> pacientesActivos(String estado);
+
+	@Query("SELECT m FROM paciente m WHERE m.numero_documento =?1")
+	List<paciente> existsByNumeroDocumento(String numeroDocumento);
 
 
 }

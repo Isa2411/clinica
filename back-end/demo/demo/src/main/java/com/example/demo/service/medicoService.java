@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.interfaceService.ImedicoService;
@@ -54,7 +57,10 @@ public class medicoService implements ImedicoService {
 
 	@Override
 	public boolean existsByNumerodocumento(String numero_documento) {
-		// TODO Auto-generated method stub
-		return false;
+		List<medico> existe = data.existsByNumeroDocumento(numero_documento);
+		if (existe.isEmpty()){
+			return false;
+		}
+		return true;
 	}
 }

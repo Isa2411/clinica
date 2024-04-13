@@ -25,4 +25,7 @@ public interface Imedico extends CrudRepository<medico,String> {
 
 	@Query("SELECT m FROM medico m WHERE m.estado =?1")
 	List<medico> medicosActivos(String estado);
+
+	@Query("SELECT m FROM medico m WHERE m.numero_documento =?1")
+	List<medico> existsByNumeroDocumento(String numeroDocumento);
 }

@@ -97,9 +97,16 @@ function registrarIngreso() {
   // Verificar si la cama está ocupada
   if (camaOcupada(cama)) {
     // Mostrar una alerta de error
-    alert("La cama está ocupada");
+    Swal.fire({
+      title: 'Error',
+      text: 'La cama está ocupada',
+      icon: 'error',
+      customClass: {
+        icon: 'custom-error-icon'
+      }
+    });
     return; // Detener el proceso de registro
-  }
+}
   // Continuar con el proceso de registro si la validación pasa
   let formData = {
     habitacion: habitacion,
@@ -122,7 +129,7 @@ function registrarIngreso() {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Se ha registrado correctamente!",
+          title: "Se ha registrado correctamente",
           showConfirmButton: false,
           timer: 1500
         });
@@ -146,23 +153,18 @@ function registrarIngreso() {
 }
 
 function camaOcupada(cama) {
-  // Aquí debes implementar la lógica para verificar si la cama está ocupada
-  // Puedes hacer una petición a tu API para obtener el estado de la cama
-  // Si la cama está ocupada, devuelve true; de lo contrario, devuelve false
-  // Por ahora, retornamos false para simular que la cama no está ocupada
+
   return false;
 }
 
 function limpiarCampos() {
-  // Aquí debes implementar la lógica para limpiar los campos del formulario
-  // Puedes establecer el valor de los campos a una cadena vacía o al valor predeterminado
-  // Por ejemplo:
+  // Limpiar los campos del formulario
   document.getElementById("habitacion").value = "";
   document.getElementById("cama").value = "";
+  document.getElementById("paciente").value = "";
+  document.getElementById("medico").value = "";
   document.getElementById("fecha_ingreso").value = "";
   document.getElementById("fecha_salida").value = "";
-  document.getElementById("medico").value = "";
-  document.getElementById("paciente").value = "";
   document.getElementById("estado").value = "";
 }
 
@@ -530,10 +532,12 @@ function filtrarIngreso() {
   for (var i = 0; i < tr.length; i++) {
     var tdHabitacion = tr[i].getElementsByTagName("td")[1];
     var tdCama = tr[i].getElementsByTagName("td")[2];
-    if (tdHabitacion || tdCama) {
+    var tdEstado = tr[i].getElementsByTagName("td")[7]
+    if (tdHabitacion || tdCama || tdEstado) {
       var habitacionValue = tdHabitacion.textContent || tdHabitacion.innerText;
       var camaValue = tdCama.textContent || tdCama.innerText;
-      if (habitacionValue.toLowerCase().indexOf(filtro) > -1 || camaValue.toLowerCase().indexOf(filtro) > -1) {
+      var estadoValue = tdEstado.textContent || tdEstado.innerText;
+      if (habitacionValue.toLowerCase().indexOf(filtro) > -1 || camaValue.toLowerCase().indexOf(filtro) > -1 || estadoValue.toLowerCase().indexOf(filtro) > -1) {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";

@@ -94,45 +94,6 @@ function registrarMedico() {
         "estado": estado
     };
     var jsonData = JSON.stringify(formData);
-
-    $.ajax({
-        url: "http://localhost:8082/api/v1/medico/existsByNumeroDocumento/" + numero_documento,
-        type: 'GET',
-        success: function (response) {
-            if (response) {
-                Swal.fire({
-                    title: "Error",
-                    text: "El número de documento ya esta registrado.",
-                    icon: "error"
-                });
-            }else{
-                // Si el médico no existe, procede con guardar el nuevo médico
-                $.ajax({
-                    url: "http://localhost:8082/api/v1/medico/" ,
-                    type: "POST",
-                    data: JSON.stringify(formData),
-                    success: function (response){
-                        Swal.fire({
-                            title: "Excelente",
-                            text: "Su registro se guardó correctamente.",
-                            icon: "success"
-                        });
-                        //llamar a la fucnion para limpiar  los campos del formuario
-                        limpiarCampos();
-                    },
-                    error: function (xhr, status, error) {
-                        //mostrar alerta de error si la peticion falla
-                        Swal.fire({
-                            title: "Error",
-                            text: "Error en la petición: " + error,
-                            icon: "error"
-                        });
-                    }
-                });
-            }
-        }
-    })
-
     if (validarCampos()) {
 
         $.ajax({
@@ -265,70 +226,70 @@ function updateMedico(id_medico) {
 
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     $.ajax({
         url: url,
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             var tabla = $('#cuerpoTablaMedico tbody');
-            tabla.empty(); 
+            tabla.empty();
 
-            $.each(data, function(index, item) {
-                tabla.append('<tr id="dato'+item.id+'">' +
-                                '<td>' + item.id_medico + '</td>' +
-                                '<td>' + item.tipo_documento + '</td>' +
-                                '<td>' + item.numero_documento + '</td>' +
-                                '<td>' + item.primer_nombre + '</td>' +
-                                '<td>' + item.segundo_nombre + '</td>' +
-                                '<td>' + item.primer_apellido + '</td>' +
-                                '<td>' + item.segundo_apellido + '</td>' +
-                                '<td>' + item.celular + '</td>' +
-                                '<td>' + item.correo + '</td>' +
-                                '<td>' + item.estado + '</td>' +
-                                '<td><button class="btn btn-success actualizar" data-id="'+item.id_medico+'">Editar</button><button id="'+item.id_medico+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_medico+'">Eliminar</button></td>' +
-                             '</tr>');
+            $.each(data, function (index, item) {
+                tabla.append('<tr id="dato' + item.id + '">' +
+                    '<td>' + item.id_medico + '</td>' +
+                    '<td>' + item.tipo_documento + '</td>' +
+                    '<td>' + item.numero_documento + '</td>' +
+                    '<td>' + item.primer_nombre + '</td>' +
+                    '<td>' + item.segundo_nombre + '</td>' +
+                    '<td>' + item.primer_apellido + '</td>' +
+                    '<td>' + item.segundo_apellido + '</td>' +
+                    '<td>' + item.celular + '</td>' +
+                    '<td>' + item.correo + '</td>' +
+                    '<td>' + item.estado + '</td>' +
+                    '<td><button class="btn btn-success actualizar" data-id="' + item.id_medico + '">Editar</button><button id="' + item.id_medico + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_medico + '">Eliminar</button></td>' +
+                    '</tr>');
             });
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log('Error: ' + textStatus, errorThrown);
         }
     });
 });
-$(document).ready(function(){
-    $("#cuerpoTablaMedico").on("click", ".eliminar-dato", function(){
+$(document).ready(function () {
+    $("#cuerpoTablaMedico").on("click", ".eliminar-dato", function () {
         var id = $(this).data("id");
         $.ajax({
-            url: url+"eliminarPermanente/"+id,
+            url: url + "eliminarPermanente/" + id,
             method: "DELETE",
-            data: {id: id},
-            success: function(response){
+            data: { id: id },
+            success: function (response) {
                 $("#dato-" + id).remove();
                 console.log("Dato eliminado correctamente");
                 location.reload();
             },
-            error: function(xhr, status, error){
+            error: function (xhr, status, error) {
                 console.error("Error al eliminar el dato:", error);
             }
         });
     });
 });
 
-$(document).ready(function(){
-    $("#cuerpoTablaMedico").on("click", ".actualizar", function(){
+$(document).ready(function () {
+    $("#cuerpoTablaMedico").on("click", ".actualizar", function () {
         var id = $(this).data("id");
         var url = "medicoactualizar.html?medico=" + encodeURIComponent(id);
         window.location.href = url;
     });
 });
 
-if(getParameterByName('medico') != null){
-    $(document).ready(function(){
+if (getParameterByName('medico') != null) {
+    $(document).ready(function () {
         $.ajax({
-            url: url+getParameterByName('medico'), 
+            url: url + getParameterByName('medico'),
             method: 'GET',
-            dataType: 'json', 
-            success: function(response) {
+            dataType: 'json',
+            success: function (response) {
                 $('#resultado').text(response);
                 document.getElementById('numero_documento').value = response.numero_documento;
                 document.getElementById('primer_nombre').value = response.primer_nombre;
@@ -340,13 +301,13 @@ if(getParameterByName('medico') != null){
                 document.getElementById('estado').value = response.estado;
                 document.getElementById('tipo_documento').value = response.tipo_documento;
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Error al obtener el dato:", error);
             }
         });
     });
 }
-function actualizarMedico(){
+function actualizarMedico() {
     let tipo_documento = document.getElementById("tipo_documento").value;
     let numero_documento = document.getElementById("numero_documento").value;
     let primer_nombre = document.getElementById("primer_nombre").value;
@@ -371,14 +332,14 @@ function actualizarMedico(){
     };
 
     $.ajax({
-        url: url+getParameterByName('medico'), 
+        url: url + getParameterByName('medico'),
         method: 'PUT',
-        data: formData, 
-        success: function(response) {
+        data: formData,
+        success: function (response) {
             console.log("Dato actualizado correctamente:", response);
             window.location.href = 'listamedico.html';
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error("Error al actualizar el dato:", error);
         }
     });
@@ -396,39 +357,39 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function filtrarMedico(){
+function filtrarMedico() {
     var filtro = document.getElementById('filtroMedico').value;
     var urlFiltro = '';
-    if(filtro == ''){
+    if (filtro == '') {
         urlFiltro = url;
-    }else{
-        urlFiltro = url+"busquedafiltro/"+filtro
+    } else {
+        urlFiltro = url + "busquedafiltro/" + filtro
     }
     $.ajax({
         url: urlFiltro,
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             var tabla = $('#cuerpoTablaMedico tbody');
-            tabla.empty(); 
+            tabla.empty();
 
-            $.each(data, function(index, item) {
-                tabla.append('<tr id="dato'+item.id+'">' +
-                                '<td>' + item.id_medico + '</td>' +
-                                '<td>' + item.tipo_documento + '</td>' +
-                                '<td>' + item.numero_documento + '</td>' +
-                                '<td>' + item.primer_nombre + '</td>' +
-                                '<td>' + item.segundo_nombre + '</td>' +
-                                '<td>' + item.primer_apellido + '</td>' +
-                                '<td>' + item.segundo_apellido + '</td>' +
-                                '<td>' + item.celular + '</td>' +
-                                '<td>' + item.correo + '</td>' +
-                                '<td>' + item.estado + '</td>' +
-                                '<td><button class="btn btn-success actualizar" data-id="'+item.id_medico+'">Editar</button><button id="'+item.id_medico+'" class="eliminar-dato btn btn-danger" data-id="'+item.id_medico+'">Eliminar</button></td>' +
-                             '</tr>');
+            $.each(data, function (index, item) {
+                tabla.append('<tr id="dato' + item.id + '">' +
+                    '<td>' + item.id_medico + '</td>' +
+                    '<td>' + item.tipo_documento + '</td>' +
+                    '<td>' + item.numero_documento + '</td>' +
+                    '<td>' + item.primer_nombre + '</td>' +
+                    '<td>' + item.segundo_nombre + '</td>' +
+                    '<td>' + item.primer_apellido + '</td>' +
+                    '<td>' + item.segundo_apellido + '</td>' +
+                    '<td>' + item.celular + '</td>' +
+                    '<td>' + item.correo + '</td>' +
+                    '<td>' + item.estado + '</td>' +
+                    '<td><button class="btn btn-success actualizar" data-id="' + item.id_medico + '">Editar</button><button id="' + item.id_medico + '" class="eliminar-dato btn btn-danger" data-id="' + item.id_medico + '">Eliminar</button></td>' +
+                    '</tr>');
             });
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log('Error: ' + textStatus, errorThrown);
         }
     });

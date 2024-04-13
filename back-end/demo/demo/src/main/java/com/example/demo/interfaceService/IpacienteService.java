@@ -12,5 +12,6 @@ public interface IpacienteService {
 	public Optional<paciente> findOne(String id_paciente);
 	public int delete(String id_paciente);
 	List<paciente> filtroPaciente(String filtro);
+	boolean existsByNumerodocumento(String numero_documento);
 
 }

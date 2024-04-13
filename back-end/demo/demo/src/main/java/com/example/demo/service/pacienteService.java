@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.model.medico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,14 @@ public class pacienteService implements IpacienteService {
 	public int delete(String id_paciente) {
 		data.deleteById(id_paciente);
 		return 1;
+	}
+
+	public boolean existsByNumerodocumento(String numero_documento){
+		List<paciente> existe = data.existsByNumeroDocumento(numero_documento);
+		if (existe.isEmpty()){
+			return false;
+		}
+		return true;
 	}
 
 }

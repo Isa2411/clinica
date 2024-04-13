@@ -33,6 +33,7 @@ public class ingresoController {
 	
 	@GetMapping("/busquedafiltro/{filtro}")
 	public ResponseEntity<Object> findFiltro(@PathVariable String filtro){
+		System.out.printf("filtro "+filtro);
 		var ListaIngreso=ingresoService.filtroIngreso(filtro);
 		return new ResponseEntity<>(ListaIngreso,HttpStatus.OK);
 	}
